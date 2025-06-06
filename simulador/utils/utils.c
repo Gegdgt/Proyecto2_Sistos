@@ -23,7 +23,7 @@ int cargarProcesos(const char* filename, Proceso procesos[]) {
             strcpy(procesos[count].pid, pid);
             procesos[count].bt = bt;
             procesos[count].at = at;
-            procesos[count].priority = prio;
+            procesos[count].prioridad = prio;
             count++;
         }
     }

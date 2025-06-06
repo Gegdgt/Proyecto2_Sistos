@@ -7,14 +7,15 @@
 #define MAX_PROCESOS 100
 #define TAM_BLOQUE 30
 
-// Estructura para representar un proceso
 typedef struct {
-    char pid[10];
-    int bt;         // Burst Time
-    int at;         // Arrival Time
-    int priority;
-    int start;      // Tiempo de inicio
-    int end;        // Tiempo de finalización
+    char pid[32];
+    int  at;
+    int  bt;
+    int  prioridad;
+    int  start;
+    int  end;
+    int  turnaround_time;
+    int  waiting_time;
 } Proceso;
 
 // Carga procesos desde archivo, retorna cantidad

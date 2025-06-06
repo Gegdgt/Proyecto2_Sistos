@@ -22,8 +22,8 @@ void ejecutarPriority(Proceso procesos[], int n) {
         // buscar proceso con mayor prioridad (menor número)
         for (int i = 0; i < n; i++) {
             if (!ejecutado[i] && procesos[i].at <= tiempo) {
-                if (procesos[i].priority < prioridad_min) {
-                    prioridad_min = procesos[i].priority;
+                if (procesos[i].prioridad < prioridad_min) {
+                    prioridad_min = procesos[i].prioridad;
                     idx_min = i;
                 }
             }
@@ -48,10 +48,10 @@ void ejecutarPriority(Proceso procesos[], int n) {
             if (!ejecutado[i] && procesos[i].at <= tiempo) {
                 tiempo_espera[i] += procesos[idx_min].bt;
                 if (tiempo_espera[i] >= ENVEJECIMIENTO_UMBRAL) {
-                    if (procesos[i].priority > 0) {
-                        procesos[i].priority--;
+                    if (procesos[i].prioridad > 0) {
+                        procesos[i].prioridad--;
                         printf("↑ Envejecimiento aplicado a %s -> nueva prioridad: %d\n",
-                               procesos[i].pid, procesos[i].priority);
+                               procesos[i].pid, procesos[i].prioridad);
                     }
                     tiempo_espera[i] = 0;
                 }
