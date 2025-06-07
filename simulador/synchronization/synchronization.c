@@ -157,9 +157,9 @@ static void cargarDatos(void) {
     while (fgets(line, sizeof(line), f) && numProcesos < MAX_PROCESOS) {
         char* tok = strtok(line, ",\n"); if (!tok) continue;
         strncpy(procesos[numProcesos].pid, tok, 31);
-        tok = strtok(NULL, ",\n"); procesos[numProcesos].burst   = tok?atoi(tok):0;
-        tok = strtok(NULL, ",\n"); procesos[numProcesos].arrival = tok?atoi(tok):0;
-        tok = strtok(NULL, ",\n"); procesos[numProcesos].priority= tok?atoi(tok):0;
+        tok = strtok(NULL, ", \n"); procesos[numProcesos].burst   = tok?atoi(tok):0;
+        tok = strtok(NULL, ", \n"); procesos[numProcesos].arrival = tok?atoi(tok):0;
+        tok = strtok(NULL, ", \n"); procesos[numProcesos].priority= tok?atoi(tok):0;
         numProcesos++;
     }
     fclose(f);
@@ -170,9 +170,9 @@ static void cargarDatos(void) {
     if (!f) { printf("Error abriendo recursos.txt\n"); return; }
     while (fgets(line, sizeof(line), f) && numRecursos < MAX_RECURSOS) {
         char name[32]; int cnt;
-        char* tok = strtok(line, ",\n"); if (!tok) continue;
+        char* tok = strtok(line, ", \n"); if (!tok) continue;
         strncpy(name, tok, 31);
-        tok = strtok(NULL, ",\n"); cnt = tok?atoi(tok):0;
+        tok = strtok(NULL, ", \n"); cnt = tok?atoi(tok):0;
         recursos[numRecursos].capacity  = isMutex?1:cnt;
         recursos[numRecursos].available = recursos[numRecursos].capacity;
         strncpy(recursos[numRecursos].name, name, 31);
@@ -187,9 +187,9 @@ static void cargarDatos(void) {
     while (fgets(line, sizeof(line), f) && numAcciones < MAX_ACCIONES) {
         char* tok = strtok(line, ",\n"); if (!tok) continue;
         strncpy(acciones[numAcciones].pid, tok, 31);
-        tok = strtok(NULL, ",\n"); strncpy(acciones[numAcciones].type, tok?tok:"",15);
-        tok = strtok(NULL, ",\n"); strncpy(acciones[numAcciones].resource, tok?tok:"",31);
-        tok = strtok(NULL, ",\n"); acciones[numAcciones].cycle = tok?atoi(tok):0;
+        tok = strtok(NULL, ", \n"); strncpy(acciones[numAcciones].type, tok?tok:"",15);
+        tok = strtok(NULL, ", \n"); strncpy(acciones[numAcciones].resource, tok?tok:"",31);
+        tok = strtok(NULL, ", \n"); acciones[numAcciones].cycle = tok?atoi(tok):0;
         acciones[numAcciones].state = NEW;
         numAcciones++;
     }
