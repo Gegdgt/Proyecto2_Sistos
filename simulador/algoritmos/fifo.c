@@ -21,6 +21,8 @@ void ejecutarFIFO(Proceso procesos[], int n) {
         procesos[i].end = tiempo + procesos[i].bt;
         tiempo = procesos[i].end;
 
-        printf("%s -> Start: %d, End: %d\n", procesos[i].pid, procesos[i].start, procesos[i].end);
+        // Cálculo de métricas para la GUI
+        procesos[i].turnaround_time = procesos[i].end - procesos[i].at;
+        procesos[i].waiting_time = procesos[i].turnaround_time - procesos[i].bt;
     }
 }

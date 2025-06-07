@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <limits.h>
 #include "priority.h"
 
@@ -19,7 +18,7 @@ void ejecutarPriority(Proceso procesos[], int n) {
         int idx_min = -1;
         int prioridad_min = INT_MAX;
 
-        // buscar proceso con mayor prioridad (menor número)
+        // Buscar proceso con mayor prioridad (menor número)
         for (int i = 0; i < n; i++) {
             if (!ejecutado[i] && procesos[i].at <= tiempo) {
                 if (procesos[i].prioridad < prioridad_min) {
@@ -29,7 +28,7 @@ void ejecutarPriority(Proceso procesos[], int n) {
             }
         }
 
-        // si no hay proceso disponible aún, avanzar tiempo
+        // Si no hay proceso disponible aún, avanzar tiempo
         if (idx_min == -1) {
             tiempo++;
             continue;
@@ -41,18 +40,16 @@ void ejecutarPriority(Proceso procesos[], int n) {
         ejecutado[idx_min] = 1;
         completados++;
 
-        printf("%s -> Start: %d, End: %d\n", procesos[idx_min].pid, procesos[idx_min].start, procesos[idx_min].end);
+        // Cálculo de métricas para GUI
+        procesos[idx_min].turnaround_time = procesos[idx_min].end - procesos[idx_min].at;
+        procesos[idx_min].waiting_time = procesos[idx_min].turnaround_time - procesos[idx_min].bt;
 
-        // aplicar envejecimiento a los procesos restantes
+        // Aplicar envejecimiento a los procesos restantes
         for (int i = 0; i < n; i++) {
             if (!ejecutado[i] && procesos[i].at <= tiempo) {
                 tiempo_espera[i] += procesos[idx_min].bt;
-                if (tiempo_espera[i] >= ENVEJECIMIENTO_UMBRAL) {
-                    if (procesos[i].prioridad > 0) {
-                        procesos[i].prioridad--;
-                        printf("↑ Envejecimiento aplicado a %s -> nueva prioridad: %d\n",
-                               procesos[i].pid, procesos[i].prioridad);
-                    }
+                if (tiempo_espera[i] >= ENVEJECIMIENTO_UMBRAL && procesos[i].prioridad > 0) {
+                    procesos[i].prioridad--;
                     tiempo_espera[i] = 0;
                 }
             }

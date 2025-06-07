@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <limits.h>
 #include "sjf.h"
 
@@ -34,6 +33,8 @@ void ejecutarSJF(Proceso procesos[], int n) {
         ejecutado[idx_min] = 1;
         completados++;
 
-        printf("%s -> Start: %d, End: %d\n", procesos[idx_min].pid, procesos[idx_min].start, procesos[idx_min].end);
+        // Cálculo de métricas para GUI
+        procesos[idx_min].turnaround_time = procesos[idx_min].end - procesos[idx_min].at;
+        procesos[idx_min].waiting_time = procesos[idx_min].turnaround_time - procesos[idx_min].bt;
     }
 }

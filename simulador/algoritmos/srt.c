@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <limits.h>
 #include "srt.h"
 
@@ -14,8 +13,6 @@ void ejecutarSRT(Proceso procesos[], int n) {
         started[i] = 0;
         ejecutado[i] = 0;
     }
-
-    int actual = -1;
 
     while (completados < n) {
         int min_rem = INT_MAX;
@@ -45,7 +42,10 @@ void ejecutarSRT(Proceso procesos[], int n) {
             procesos[idx_min].end = tiempo;
             ejecutado[idx_min] = 1;
             completados++;
-            printf("%s -> Start: %d, End: %d\n", procesos[idx_min].pid, procesos[idx_min].start, procesos[idx_min].end);
+
+            // Cálculo de métricas para GUI
+            procesos[idx_min].turnaround_time = procesos[idx_min].end - procesos[idx_min].at;
+            procesos[idx_min].waiting_time = procesos[idx_min].turnaround_time - procesos[idx_min].bt;
         }
     }
 }

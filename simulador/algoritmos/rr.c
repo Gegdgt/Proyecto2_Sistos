@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <string.h>
 #include "rr.h"
 
@@ -35,6 +34,7 @@ void ejecutarRR(Proceso procesos[], int n, int quantum) {
         }
 
         int idx = cola[frente++];
+
         if (!started[idx]) {
             procesos[idx].start = tiempo;
             started[idx] = 1;
@@ -56,7 +56,10 @@ void ejecutarRR(Proceso procesos[], int n, int quantum) {
             procesos[idx].end = tiempo;
             ejecutado[idx] = 1;
             completados++;
-            printf("%s -> Start: %d, End: %d\n", procesos[idx].pid, procesos[idx].start, procesos[idx].end);
+
+            // Cálculo de métricas para GUI
+            procesos[idx].turnaround_time = procesos[idx].end - procesos[idx].at;
+            procesos[idx].waiting_time = procesos[idx].turnaround_time - procesos[idx].bt;
         } else {
             cola[fin++] = idx; // reencolar el proceso
         }
