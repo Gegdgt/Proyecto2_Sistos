@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include "guiUtils.h"
 #include "scheduling.h"
+#include "synchronization.h"
 #include "utils.h"
 #include "fifo.h"
 #include "sjf.h"
@@ -55,10 +56,7 @@ int main(int argc, char* argv[]) {
                 if (estaSobreBoton(x, y, boton_scheduling)) {
                     lanzarSimuladorScheduling();
                 } else if (estaSobreBoton(x, y, boton_sync)) {
-                    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,
-                                             "Sincronización",
-                                             "Esta parte será implementada por otro integrante.",
-                                             window);
+                    lanzarSimuladorSynchronization();
                 }
             }
         }

@@ -20,10 +20,11 @@ CFLAGS  = -Wall $(SDL_CFLAGS) \
           -I. \
           -I./algoritmos \
           -I./scheduling \
+		  -I./synchronization \
           -I./utils
 
 # 4. Carpetas donde hay .c/.h
-SRCDIRS := algoritmos scheduling utils
+SRCDIRS := algoritmos scheduling synchronization utils
 
 # 5. Lista de todos los .c (incluyendo main.c)
 SRC := main.c \
